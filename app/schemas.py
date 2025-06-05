@@ -1,5 +1,6 @@
 from pydantic import BaseModel,EmailStr
 from datetime import datetime
+from typing import Optional
 
 
 class PostBase(BaseModel):
@@ -10,6 +11,7 @@ class PostBase(BaseModel):
 
 class PostCreate(PostBase):
     pass
+
 
 # response model for reading posts
 class Post(PostBase):
@@ -28,5 +30,6 @@ class UserOut(BaseModel):
     id:int
     email:EmailStr
     created_at: datetime
+    # password:str
     class Config:
         orm_mode = True
