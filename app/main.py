@@ -9,7 +9,7 @@ from psycopg2.extras import RealDictCursor
 from . import models,schemas,utils
 from sqlalchemy.orm import Session
 from .database import engine,SessionLocal, get_db
-from .routers import post,user
+from .routers import post,user,auth
 
 # pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # models.Base.metadata.create_all(bind=engine)
@@ -46,7 +46,7 @@ except Exception as error:
 
 app.include_router(post.router)
 app.include_router(user.router)
-
+app.include_router(auth.router)
 
 @app.get("/")
 def read_root():

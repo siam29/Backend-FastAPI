@@ -6,7 +6,8 @@ from fastapi import FastAPI,Response,status,HTTPException,Depends
 from sqlalchemy.orm import Session
 
 router = APIRouter(
-    prefix="/users"
+    prefix="/users",
+    tags=['Users']
 )
 
 
