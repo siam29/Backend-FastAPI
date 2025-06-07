@@ -12,7 +12,8 @@ from .database import engine,SessionLocal, get_db
 from .routers import post,user,auth
 
 # pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-# models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI()
 
@@ -32,8 +33,6 @@ def find_index_post(id):
             return i
     return None
     # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"post with id : {id} was not found")
-
-
     #connection to database
 
 try:
@@ -51,5 +50,3 @@ app.include_router(auth.router)
 @app.get("/")
 def read_root():
     return {"Hello": "World welcome to FastAPI!!!"}
-
-
