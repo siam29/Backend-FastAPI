@@ -35,12 +35,13 @@ class UserOut(BaseModel):
         orm_mode = True
 
 class UserLogin(BaseModel):
-    email:str
+    email:EmailStr
     password: str
 
 class Token(BaseModel):
     access_token: str
     token_type: str
 
+
 class TokenData(BaseModel):
-    id: Optional[int] = None
+    id: Optional[str] = None

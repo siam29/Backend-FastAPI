@@ -19,12 +19,36 @@ def get_posts(db:Session = Depends(get_db)):
 
 @router.post("/",status_code=status.HTTP_201_CREATED,response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate, db:Session=Depends(get_db),user_id:int = Depends(oauth2.get_current_user)):
-    print("user_id",user_id)
+    print(user_id)
     new_post=models.Post(**post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
     return new_post
+
+
+# @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
+# def create_posts(
+#     title: str = Form(...),
+#     content: str = Form(...),
+#     published: bool = Form(True),
+#     db: Session = Depends(get_db),
+#     current_user: models.User = Depends(oauth2.get_current_user)
+# ):
+#     print("User ID:", current_user.id)
+#     new_post = models.Post(
+#         title=title,
+#         content=content,
+#         published=published,
+#         owner_id=current_user.id
+#     )
+#     db.add(new_post)
+#     db.commit()
+#     db.refresh(new_post)
+#     return new_post
+
+
+
 
 @router.get("/{id}",response_model=schemas.Post)
 def get_post(id:int,db:Session=Depends(get_db)):
