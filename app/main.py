@@ -2,8 +2,16 @@ from . import models
 from .database import engine
 from .routers import post,user,auth
 from fastapi import FastAPI
+from pydantic import BaseSettings
 
-# pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+class Settings(BaseSettings):
+    database_password: str ="localhost"
+    database_username: str = "postgres"
+    secret_key: str ="234ui2340892348"
+
+# settings = Settings()
+# print(settings.database_password)
+
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
