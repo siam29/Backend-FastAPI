@@ -52,17 +52,15 @@ def create_posts(post: schemas.PostCreate, db:Session=Depends(get_db),current_us
 
 
 @router.get("/{id}",response_model=schemas.Post)
-def get_post(id:int,db:Session=Depends(get_db),current_user:int = Depends(oauth2.get_current_user)):
-    post = db.query(models.Post).filter(models.Post.id == id).first()
+def get_post(id:int,db:Session=Depends(get_db),current_user:int = Depends(oauth2.get_current_user),limit: int  = 10):
+    print("======================limit======================",limit)
+
+    post = db.query(models.Post).limit(limit).all()
     print("post",post)
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"post with id : {id} was not found")
     return post
 
-@router.get("/latest")
-def get_latest_post():
-    post=my_post[len(my_post)-1]
-    return{"detail":post}
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id:int,db:Session=Depends(get_db),current_user:int = Depends(oauth2.get_current_user)):
